@@ -10,6 +10,7 @@ namespace XYZUniversityPortal.Models
 
         [Range(1, 5)]
         public int Credits { get; set; }
+        [Required]
 
         public int DepartmentId { get; set; }
         public Department? Department { get; set; }
