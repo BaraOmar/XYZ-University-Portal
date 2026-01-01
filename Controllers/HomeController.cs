@@ -1,5 +1,6 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using XYZUniversityPortal.Models;
 
 namespace XYZUniversityPortal.Controllers
@@ -13,7 +14,13 @@ namespace XYZUniversityPortal.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+//[Authorize(Roles = "Admin")]
+//    public IActionResult AdminOnly()
+//    {
+//        return Content("Admin access confirmed");
+//    }
+
+    public IActionResult Index()
         {
             return View();
         }
