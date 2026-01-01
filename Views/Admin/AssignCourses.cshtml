@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Assign Courses to Instructor";
+    var assignedCourses = ViewData["InstructorCourses"] as IEnumerable<XYZUniversityPortal.Models.Course>;
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<h2>Assign Courses</h2>
+
+@if (ViewData["InstructorDepartment"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Instructor Department:</strong> @ViewData["InstructorDepartment"]
+    </div>
+}
+
+<h4>Currently Assigned Courses</h4>
+
+@if (assignedCourses != null && assignedCourses.Any())
+{
+    <ul class="list-group">
+        @foreach (var c in assignedCourses)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @c.Title
+
+                <form asp-action="RemoveCourse" method="post" class="mb-0">
+                    <input type="hidden" name="instructorId" value="@ViewData["InstructorId"]" />
+                    <input type="hidden" name="courseId" value="@c.CourseId" />
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Remove
+                    </button>
+                </form>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No courses assigned yet.</p>
+}
+
+
+<form asp-action="AssignCourses" method="post">
+    <input type="hidden" name="instructorId" value="@ViewData["InstructorId"]" />
+
+    <div class="form-group">
+        <label>Select Course</label>
+        <select name="courseId" class="form-control">
+            <option value="">-- Select Course --</option>
+            @foreach (var c in (SelectList)ViewData["Courses"])
+            {
+                <option value="@c.Value">@c.Text</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">
+        Assign Course
+    </button>
+</form>

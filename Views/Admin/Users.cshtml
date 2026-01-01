@@ -1,4 +1,10 @@
 ﻿@model IEnumerable<XYZUniversityPortal.Models.ViewModels.UserRoleViewModel>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Error"]
+    </div>
+}
 
 <h2>Users</h2>
 
@@ -50,7 +56,27 @@
                             Assign Role
                         </button>
                     </form>
+                    @if (item.Roles.Contains("Instructor"))
+                    {
+                        <a asp-action="AssignInstructor"
+                           asp-route-userId="@item.User.Id"
+                           class="btn btn-sm btn-secondary mt-2">
+                            Assign Department
+                        </a>
+                    }
+                    @if (item.Roles.Contains("Instructor") && item.HasDepartment)
+                    {
+                        <a asp-action="AssignCourses"
+                           asp-route-instructorId="@item.User.Id"
+                           class="btn btn-sm btn-warning mt-1">
+                            Assign Courses
+                        </a>
+                    }
+
+
                 </td>
+ 
+
 
             </tr>
         }

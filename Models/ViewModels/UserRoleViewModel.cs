@@ -8,5 +8,7 @@ namespace XYZUniversityPortal.Models.ViewModels
         public IList<string>? Roles { get; set; }
         public string? SelectedRole { get; set; }
         public IEnumerable<string>? AllRoles { get; set; }
+        public bool HasDepartment { get; set; }
+
     }
 }

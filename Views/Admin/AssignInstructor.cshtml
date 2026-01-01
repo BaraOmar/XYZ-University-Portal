@@ -1,0 +1,38 @@
+﻿@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@if (ViewData["CurrentDepartment"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Current Department:</strong> @ViewData["CurrentDepartment"]
+    </div>
+
+    <div class="alert alert-secondary">
+        Department assignment is locked and cannot be changed.
+    </div>
+}
+else
+{
+    <form asp-action="AssignInstructor" method="post">
+        <input type="hidden" name="userId" value="@ViewData["UserId"]" />
+
+        <div class="form-group">
+            <label>Department</label>
+            <select name="departmentId" class="form-control">
+                <option value="">-- Select Department --</option>
+                @foreach (var dept in (SelectList)ViewData["Departments"])
+                {
+                    <option value="@dept.Value">@dept.Text</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">
+            Save
+        </button>
+    </form>
+}

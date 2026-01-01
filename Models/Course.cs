@@ -15,6 +15,8 @@ namespace XYZUniversityPortal.Models
         public int DepartmentId { get; set; }
         public Department? Department { get; set; }
         public Instructor? Instructor { get; set; }
+        public string? InstructorId { get; set; }
+
         public ICollection<Enrollment>? Enrollments { get; set; }
 
     }
